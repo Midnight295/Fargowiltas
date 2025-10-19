@@ -29,6 +29,7 @@ using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 using static Fargowiltas.Content.Items.Tiles.EnchantedTreeTileEntity;
 using static Fargowiltas.FargoSets;
 
@@ -156,6 +157,14 @@ namespace Fargowiltas
 
             SetBonusKey = KeybindLoader.RegisterKeybind(this, "SetBonus", "V");
 
+
+            ChatManager.Register<TextIconHandler>(new string[2]
+            {
+                "t",
+                "texture"
+            });
+
+            TextIconHandler.RegisterNewIcon("ShimmerIcon", this.DisplayNameClean);
 
             mods =
             [
