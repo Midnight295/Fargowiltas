@@ -492,7 +492,7 @@ namespace Fargowiltas
                             if (args[2].GetType() != typeof(string))
                                 throw new Exception($"Call Error (Fargo Mutant Mod AddStat): args[2] must be of type String");
                             if (args[3].GetType() != typeof(int))
-                                throw new Exception($"Call Error (Fargo Mutant Mod AddStat): args[3] must be of type int");
+                                throw new Exception($"Call Error (Fargo Mutant Mod AddStat): args[3] must be of type Vector2");
                             if (args[4].GetType() != typeof(Func<object>))
                                 throw new Exception($"Call Error (Fargo Mutant Mod AddStat): args[4] must be of type Func<object>");
                             if (args[5].GetType() != typeof(Func<string>))
@@ -504,7 +504,7 @@ namespace Fargowiltas
 
                             float priority = args[6].GetType() == typeof(float) ? (float)args[6] : -1;
 
-                            StatRegistry.TryAddStatToCategory(categoryName, (string)args[2], (int)args[3], (Func<object>)args[4], (Func<string>)args[5], priority);
+                            StatRegistry.TryAddStatToCategory(categoryName, (string)args[2], (Vector2)args[3], (Func<object>)args[4], (Func<string>)args[5], priority);
                         }
                         break;
                     case "AddPermaUpgrade":

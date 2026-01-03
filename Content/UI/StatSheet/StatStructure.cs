@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Terraria;
@@ -22,16 +23,16 @@ namespace Fargowiltas.Content.UI.StatSheet
     {
         public string Name;
         float priority;
-        public int ItemID;
+        public Vector2 Frame;
         public Func<bool> condition;
         public Func<string> TextFunction;
         public Func<object> Value;
 
-        public Stat(string name, float priority, int itemID, Func<object> value, Func<string> textFunction, Func<bool> condition = null)
+        public Stat(string name, float priority, Vector2 frame, Func<object> value, Func<string> textFunction, Func<bool> condition = null)
         {
             this.condition = condition == null ? () => true : condition;
             Name = name;
-            ItemID = itemID;
+            Frame = frame;
             TextFunction = textFunction;
             Value = value;
             this.priority = priority;
@@ -84,15 +85,15 @@ namespace Fargowiltas.Content.UI.StatSheet
             return new StatCategory(key, HeaderLocalPath, condition, iconPath);
         }
 
-        internal StatCategory FargoStat(string key, int itemID, Func<object> value, string localPath = null, Func<bool> condition = null)
-            => AddStat(key, priorityMax, itemID, value, $"Mods.Fargowiltas.UI.StatSheet.{key}", condition);
+        internal StatCategory FargoStat(string key, Vector2 frame, Func<object> value, string localPath = null, Func<bool> condition = null)
+            => AddStat(key, priorityMax, frame, value, $"Mods.Fargowiltas.UI.StatSheet.{key}", condition);
 
-        public StatCategory AddStat(string key, float priority, int itemID, Func<object> value, string localPath, Func<bool> condition = null)
+        public StatCategory AddStat(string key, float priority, Vector2 frame, Func<object> value, string localPath, Func<bool> condition = null)
         {
             condition ??= (() => true);
 
 
-            Stat newStat = new Stat(key, priority, itemID, value, () => Language.GetTextValue(localPath), condition);
+            Stat newStat = new Stat(key, priority, frame, value, () => Language.GetTextValue(localPath), condition);
             if (!Stats.Contains(newStat))
             {
                 Stats.Add(newStat);
@@ -142,7 +143,7 @@ namespace Fargowiltas.Content.UI.StatSheet
         /// <param name="textFunction"></param>
         /// <param name="priorityOverride"></param>
         /// <returns><see langword="true"/> if the stat was added successfully, <see langword="false"/> otherwise.</returns>
-        public static bool TryAddStatToCategory(string categoryKey, string statKey, int itemID, Func<object> value, Func<string> textFunction, float priorityOverride = -1)
+        public static bool TryAddStatToCategory(string categoryKey, string statKey, Vector2 frame, Func<object> value, Func<string> textFunction, float priorityOverride = -1)
         {
             if (finalized)
                 return false;
@@ -156,7 +157,7 @@ namespace Fargowiltas.Content.UI.StatSheet
                     category.priorityMax++;
                 }
 
-                Stat newStat = new Stat(statKey, p, itemID, value, textFunction);
+                Stat newStat = new Stat(statKey, p, frame, value, textFunction);
                 if (!category.Stats.Contains(newStat))
                 {
                     category.Stats.Add(newStat);

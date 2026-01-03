@@ -30,6 +30,7 @@ namespace Fargowiltas.Assets.Textures
             public static Asset<Texture2D> SoulTogglerButton_MouseOverTexture => ModContent.Request<Texture2D>(Filepath + "UI/SoulTogglerToggle_MouseOver", AssetRequestMode.ImmediateLoad);
 
             public static Asset<Texture2D> CombinedUITab => ModContent.Request<Texture2D>(Filepath + "UI/CombinedUITab", AssetRequestMode.ImmediateLoad);
+            public static Asset<Texture2D> StatSheetIcons => ModContent.Request<Texture2D>(Filepath + "UI/StatSheetIcons", AssetRequestMode.ImmediateLoad);
 
             public class Toggler
             {
